@@ -9,9 +9,8 @@ gem 'sqlite3'
 
 gem 'mongoid'
 gem 'bson'
+
 gem 'devise'
-
-
 gem 'devise_token_auth'
 
 gem 'rack-cors', :require => 'rack/cors'
