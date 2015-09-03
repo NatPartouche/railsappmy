@@ -65,7 +65,7 @@ class User
   validates :username, :presence => true
 
   validates :username, format: { with: /\A([a-z0-9_]+)\z/}
-
+  
   validates :email, :email => true, :if => "email.present?"
   validates :email, :uniqueness => true, :if => "email.present?"
 
@@ -73,7 +73,7 @@ class User
   validates :phone, :uniqueness => true
 
   validate :phone_format
-  
+
   before_save :set_default_username
 
   def set_default_username
