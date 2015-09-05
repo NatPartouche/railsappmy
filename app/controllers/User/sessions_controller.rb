@@ -7,13 +7,21 @@ class User::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-   def create
-    user = User.where({
-      :email => params['email'],
-      :encrypted_password => params['encrypted_password']})
-    
-   end
+ def create
+  user = User.where({
+    :email => params['email'],
+    :encrypted_password => params['encrypted_password']})
+  
+  
+ end
 
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
+  end
   # DELETE /resource/sign_out
   # def destroy
   #   super

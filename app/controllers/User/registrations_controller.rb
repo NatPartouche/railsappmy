@@ -1,6 +1,8 @@
 class User::RegistrationsController < Devise::RegistrationsController
-# before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
+   before_filter :configure_sign_up_params, only: [:create]
+ #  before_filter :configure_account_update_params, only: [:update]
+
+  respond_from :json
 
   # GET /resource/sign_up
   # def new
@@ -9,7 +11,8 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
    def create
-   user = User.new #|| 
+    print_f "CREATE"
+    user = User.new #|| 
     user.email = params[:email]
     user.username = params[:username]
     user.fullname = params[:fullname]
@@ -42,12 +45,15 @@ class User::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
-
+   protected
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.for(:sign_up) << :attribute
-  # end
+   def configure_sign_up_params
+      devise_parameter_sanitizer.for(:sign_in) 
+      { |u| u.permit(:name, :phone
+                      ,:email,:fullname
+                          ,:username) }
+
+   end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
@@ -63,4 +69,5 @@ class User::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
 end

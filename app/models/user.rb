@@ -8,6 +8,7 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+
   ## Database authenticatable
 
   field :provider, type: String, default: ""
@@ -57,14 +58,15 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
-  validates :fullname, length: { minimum: 3, maximum: 46 }
+  validates :fullname , length: { minimum: 3, maximum: 46 }
 
   validates :username, length: { minimum: 3, maximum: 30 }
 
   validates :username, :uniqueness => true
   validates :username, :presence => true
 
-  validates :username, format: { with: /\A([a-z0-9_]+)\z/}
+  #validates :username 
+  #,format: { with: /\A([a-z0-9_]+)\z/}
   
   validates :email, :email => true, :if => "email.present?"
   validates :email, :uniqueness => true, :if => "email.present?"
@@ -72,7 +74,7 @@ class User
   validates :phone, :presence => true, :if => "phone.present?" #FIXME : Remove require
   validates :phone, :uniqueness => true
 
-  validate :phone_format
+ # validate :phone_format
 
   before_save :set_default_username
 
